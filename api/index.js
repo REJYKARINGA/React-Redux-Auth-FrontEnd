@@ -29,7 +29,7 @@ const app = express();
 // }));
 //   // To handle preflight requests
 // app.options('*', cors());
-   
+    
       
     
   app.use(bodyParser.urlencoded({ extended: true }));
