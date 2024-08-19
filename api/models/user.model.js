@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true,
+    },
+    profilePicture: {
+        type: String,
+        default: 'https://www.freepik.com/free-vector/user-circles-set_145856997.htm#fromView=search&page=1&position=20&uuid=10510997-c9ff-4a09-aab9-351d48792512',
     }
 },{timestamps:true});
 
