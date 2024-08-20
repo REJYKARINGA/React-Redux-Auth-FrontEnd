@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bodyParser from 'body-parser'
-
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 // import cors from 'cors'
 
 dotenv.config();
@@ -32,10 +32,10 @@ const app = express();
     
       
     
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
+app.use(express.json())
+app.use(cookieParser())
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
