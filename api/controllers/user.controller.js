@@ -1,5 +1,6 @@
 import User from "../models/user.model.js"
 import { errorHandler } from "../utils/error.js"
+import bcryptjs from 'bcryptjs';
 
 
 export const test = (req,res)=>{
@@ -9,29 +10,33 @@ export const test = (req,res)=>{
 }
 
 
-export const updateUser =async (req,res, next)=>{
-    if(req.usr.id !== req.params.id){
-        return next(errorHandler(401,'You can update only you account!'))
+export const updateUser = async (req, res, next) => {
+  console.log('hello');
+  
+    console.log(req.params.id,'req.params.id')
+    if (req.user.id !== req.params.id) {
+      return next(errorHandler(401, 'You can update only your account!'));
     }
     try {
-        if(req.body.password){
-            req.body.password = bcryptjs.hashSync(req.body.password, 10)
-        }
-        
-        const updateUser = await User.findByIdAndUpdate(req.params.id, 
+      if (req.body.password) {
+        req.body.password = bcryptjs.hashSync(req.body.password, 10);
+      }
+  
+      const updateUser = await User.findByIdAndUpdate(
+        req.params.id,
         {
-            $set:
-            {
+          $set: {
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
             profilePicture: req.body.profilePicture,
-        }},{new: true})
-
-        const {password, ...rest } = updateUser._doc
-        res.status(200).json(rest)
+          },
+        },
+        { new: true }
+      );
+      const { password, ...rest } = updateUser._doc;
+      res.status(200).json(rest);
+    } catch (error) {
+      next(error);
     }
- catch (error) {
-    next(error)
-}
-}
+  };
