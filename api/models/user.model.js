@@ -18,7 +18,16 @@ const userSchema = new mongoose.Schema({
     profilePicture: {
         type: String,
         default: 'https://img.freepik.com/free-vector/user-circles-set_78370-4704.jpg?t=st=1724175130~exp=1724178730~hmac=e0e0948c66e1b81c8ce61d2bb1552b4647d05c1735da359b29e6677531ff71d9&w=740',
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
+    // role: {
+    //     type: String,
+    //     enum: ['user', 'admin'],
+    //     default: 'user', 
+    // }
 },{timestamps:true});
 
 const User = mongoose.model('User',userSchema)
